@@ -76,7 +76,8 @@ def load_documents():
     return documents
 
 
-
+def load_file(filepath):
+    raise NotImplementedError
 
 
 def split_documents(documents: list[Document]):
