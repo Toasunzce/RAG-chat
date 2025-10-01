@@ -4,6 +4,8 @@ os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'  # warning handler
 from parser import parse_info
 import uuid 
 from dotenv import load_dotenv
+import logging
+import time
 
 from langchain_groq import ChatGroq
 from langchain_huggingface import HuggingFaceEmbeddings
@@ -28,19 +30,20 @@ GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
 llm = None
 embedder = None
-
+logger = logging.getLogger(__name__)
 
 # ================== MODELS ==================
 
 
 def load_models():
-    """Load LLM and embeddings"""
     global llm, embedder
     llm = ChatGroq(
         groq_api_key=GROQ_API_KEY,
         model_name="llama-3.3-70b-versatile"
     )
     embedder = HuggingFaceEmbeddings(model_name="ai-forever/ru-en-RoSBERTa")
+    if llm and embedder:
+        logger.info(f"{time.ctime()}: llm and embedder loaded")                 # logs
     # installing in %USERPROFILE%\.cache\huggingface\hub\
 
 
@@ -77,7 +80,15 @@ def load_documents():
 
 
 def load_file(filepath):
-    raise NotImplementedError
+    loader = None
+    if ".md" in filepath or ".txt" in filepath:
+        loader = TextLoader(filepath, encoding="utf-8")
+    elif ".pdf" in filepath:
+        loader = PyPDFLoader(filepath)
+    else:
+        return None
+    documents = loader.load()
+    return documents
 
 
 def split_documents(documents: list[Document]):
@@ -103,16 +114,19 @@ def create_vectorstore():
         path=QDRANT_PATH,
         collection_name="docs"
     )
+    logger.info(f"{time.ctime()}: {len(chunks)} chunks loaded into store")      # logs
     return vectorstore
 
 
 def load_vectorstore():
     client = QdrantClient(path=QDRANT_PATH)
-    return QdrantVectorStore(
+    vectorstore =  QdrantVectorStore(
         client=client,
         collection_name="docs",
         embedding=embedder
     )
+    logger.info(f"{time.ctime()}: store loaded")                                # logs
+    return vectorstore
 
 
 def search_docs(vectorstore, query, k=5):
@@ -123,6 +137,7 @@ def add_parsed_text_to_db(vectorstore, text, source_name="parser"):
     document = Document(page_content=text, metadata={"source": source_name})
     chunks = split_documents([document])
     vectorstore.add_documents(chunks)
+    logger.info(f"{time.ctime()}: {len(chunks)} web chunks added into store")   # logs
 
 
 def delete_via_source(vectorstore, source_name="parser"):
@@ -140,9 +155,12 @@ def delete_via_source(vectorstore, source_name="parser"):
             collection_name=collection_name,
             points_selector=delete_filter
         )
-        print("parsed docs deleted")
+        logger.info(f"{time.ctime()}: parsed docs deleted")                     # logs
     except Exception as e:
         print(f"error deleting docs with source={source_name}: {e}")
+        logger.info(                                                            # logs
+            f"{time.ctime()}: error deleting docs with source={source_name}: {e}"
+        )
 
 
 # ================== RESPONSE ==================
@@ -180,6 +198,9 @@ def generate_response(vectorstore, question, history, parse=True):
 
     messages = history + [HumanMessage(content=formatted_prompt)]
     response = llm.invoke(messages)
+    
+    logger.info(f"{time.ctime()}: response generated")                          # logs
+
     return response.content
 
 

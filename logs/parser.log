@@ -1,0 +1,7 @@
+INFO:__main__:Wed Oct  1 14:32:37 2025: started
+INFO:__main__:Wed Oct  1 14:32:37 2025: question='столица сша'
+INFO:__main__:Wed Oct  1 14:32:40 2025: found links:
+INFO:__main__:Wed Oct  1 14:32:40 2025: ['https://ru.wikipedia.org/wiki/Вашингтон', 'https://vnewyorke.com/stolitsa_ssha_nyu_jork_washington_gorod_usa/', 'https://wikiway.com/usa/vashington/', 'https://flatters.ru/blog/usa/kakaya-stolica-u-ssha/', 'https://travelhub.by/news/kakaya-stolitsa-ssha-i-pochemu-ee-putayut-s-njyu-yorkom']
+INFO:__main__:Wed Oct  1 14:32:49 2025: timeout while accessing to https://vnewyorke.com/stolitsa_ssha_nyu_jork_washington_gorod_usa/
+INFO:__main__:Wed Oct  1 14:32:53 2025: succesfully extracted
+INFO:__main__:execution time: 15.81

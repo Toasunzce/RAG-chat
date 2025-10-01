@@ -1,0 +1,22 @@
+INFO:__main__:Wed Oct  1 16:14:58 2025: launching process started...
+WARNING:tensorflow:From C:\Users\twist\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\tf_keras\src\losses.py:2976: The name tf.losses.sparse_softmax_cross_entropy is deprecated. Please use tf.compat.v1.losses.sparse_softmax_cross_entropy instead.
+
+INFO:sentence_transformers.SentenceTransformer:Use pytorch device_name: cpu
+INFO:sentence_transformers.SentenceTransformer:Load pretrained SentenceTransformer: ai-forever/ru-en-RoSBERTa
+INFO:sentence_transformers.SentenceTransformer:4 prompts are loaded, with the keys: ['classification', 'search_query', 'search_document', 'clustering']
+INFO:chat:Wed Oct  1 16:15:40 2025: llm and embedder loaded
+INFO:chat:Wed Oct  1 16:15:41 2025: store loaded
+INFO:__main__:Wed Oct  1 16:15:41 2025: bot is up!
+INFO:__main__:Wed Oct  1 16:19:06 2025: 1 chunks from datata.txt added
+INFO:httpx:HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:chat:Wed Oct  1 16:19:19 2025: response generated
+INFO:__main__:generation time: 1.02
+INFO:__main__:Wed Oct  1 16:20:01 2025: parsing mode enabled...
+INFO:parser:Wed Oct  1 16:20:23 2025: found links:
+INFO:parser:Wed Oct  1 16:20:23 2025: []
+INFO:parser:Wed Oct  1 16:20:23 2025: succesfully extracted
+INFO:chat:Wed Oct  1 16:20:23 2025: 0 web chunks added into store
+INFO:chat:Wed Oct  1 16:20:23 2025: parsed docs deleted
+INFO:httpx:HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:chat:Wed Oct  1 16:20:24 2025: response generated
+INFO:__main__:generation time: 3.3

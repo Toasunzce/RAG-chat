@@ -4,11 +4,16 @@ from bs4 import BeautifulSoup
 import trafilatura
 from urllib.parse import urlparse, parse_qs, unquote
 import time
+import logging
 
 
-# TODO list 
-# 1. implement storage maangement (uodatiing storage with relevant info from the web)
-# 2. 
+# ================== CONFIG ==================
+
+
+logger = logging.getLogger(__name__)
+
+
+# ================== FUNCTIONS ===============
 
 
 def search_duckduckgo(query):
@@ -29,7 +34,6 @@ def search_duckduckgo(query):
             if raw_url.startswith("//"):
                 raw_url = "https:" + raw_url
             links.append(raw_url)
-    print(f"{len(links)=}")
     return links
 
 def extract_text(url):
@@ -42,24 +46,37 @@ def extract_text(url):
         text = trafilatura.extract(res.text)
         return text
     except ReadTimeout as e:
-        print(f"timeout while accessing to {url}")
+        logger.info(f"{time.ctime()}: timeout while accessing to {url}")                # logs
     except RequestException as e:
-        print(f"error {e} while accessing to {url}")
+        logger.info(f"{time.ctime()}: error {e} while accessing to {url}")              # logs
     return None
 
 def parse_info(question):
     links = search_duckduckgo(question)
-    # print("found links:")                                   # logs
-    # for l in links:
-    #     print(l)
+    logger.info(f"{time.ctime()}: found links:")                                        # logs
+    logger.info(f"{time.ctime()}: {links}")                                             # logs
     texts = [extract_text(link) for link in links]
-    print("extracted")
+    logger.info(f"{time.ctime()}: succesfully extracted")                               # logs
     filtered_texts = [t for t in texts if t]
     output = "\n".join(filtered_texts)
     return output
 
 
 if __name__ == "__main__":
+    logging.basicConfig(
+        filename='logs/parser.log',
+        level=logging.INFO,
+        encoding='utf-8',
+        filemode='w'
+    )
 
-    output = parse_info("столица сша")
+    start_time = time.time()
+
+    question = "столица сша"
+    logger.info(f"{time.ctime()}: started")                                             # logs
+    logger.info(f"{time.ctime()}: {question=}")                                         # logs
+    output = parse_info(question)
+
+    end_time = time.time()
+    logger.info(f"execution time: {round(end_time - start_time, 2)}")
     print(output)
