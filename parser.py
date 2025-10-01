@@ -1,10 +1,13 @@
+import logging
+import time
+from urllib.parse import parse_qs, unquote, urlparse
+
 import requests
 from requests.exceptions import ReadTimeout, RequestException
 from bs4 import BeautifulSoup
 import trafilatura
-from urllib.parse import urlparse, parse_qs, unquote
-import time
-import logging
+
+
 
 
 # ================== CONFIG ==================
@@ -39,7 +42,7 @@ def search_duckduckgo(query):
 def extract_text(url):
     try:
         res = requests.get(                     # FIXME firewall error (use verify=False and request something like "столица сша")
-            url, timeout=3, verify=False,
+            url, timeout=3, verify=False,       # now we are using VERY unsafe request here
             headers={"User-Agent": "Mozilla/5.0"}
         )
         res.raise_for_status()

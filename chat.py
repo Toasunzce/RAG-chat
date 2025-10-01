@@ -1,23 +1,22 @@
-import os
-os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'  # warning handler
-
-from parser import parse_info
-import uuid 
-from dotenv import load_dotenv
 import logging
+import os
 import time
+import uuid
 
-from langchain_groq import ChatGroq
-from langchain_huggingface import HuggingFaceEmbeddings
-from langchain_community.document_loaders import DirectoryLoader, TextLoader, PyPDFLoader
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_qdrant import QdrantVectorStore
+from dotenv import load_dotenv
 
 from langchain.schema import Document, HumanMessage
 from langchain.prompts import ChatPromptTemplate
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_community.document_loaders import DirectoryLoader, TextLoader, PyPDFLoader
+from langchain_groq import ChatGroq
+from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_qdrant import QdrantVectorStore
 
 from qdrant_client import QdrantClient
 from qdrant_client.http.models import Filter, FieldCondition, MatchValue
+
+from parser import parse_info
 
 
 

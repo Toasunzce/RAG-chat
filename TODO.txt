@@ -1,0 +1,6 @@
+1. filter extracted (from vectorstore) docs using relevance score
+2. make quicker relevant document search (reranker?)
+3. manage uploaded documents and sort them by users (without overlaps)
+4. autocleaning vector storage
+5. Docker
+6. UX/UI upgrade (mini-app)

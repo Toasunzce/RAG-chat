@@ -1,25 +1,21 @@
+import logging
+import os
+import time
+
+from dotenv import load_dotenv
 import telebot
 from telebot import types
-import os
+
 from langchain.schema import SystemMessage, HumanMessage, AIMessage
-from chat import load_models, load_vectorstore, generate_response, load_file, split_documents
-from dotenv import load_dotenv
-import logging 
-import shutil
-import time
-from qdrant_client import QdrantClient
 
-# requirements:
-# 1. libmagic
-# 2. unstructured
-# 3. pypdf
-# 4. dotenv
+from chat import (
+    load_models,
+    load_vectorstore,
+    generate_response,
+    load_file,
+    split_documents,
+)
 
-
-
-# TODO list DONT SOLVE IT STAIGHTFULLY (must-have first of all)
-# 1. concatentate every configs and sublibs into this bot loop
-# 2. implement async support. If bot is currently generating response, type "wait till answer!"
 
 
 
@@ -46,7 +42,9 @@ DATA_PATH = "raw_data"
 
 def get_history(chat_id):
     if chat_id not in messages_history.keys():
-        messages_history[chat_id] = [SystemMessage(content="...")] # replace with system prompt
+        messages_history[chat_id] = [
+            SystemMessage(content="You are a helpful AI assistant. Always answer in Russian unless asked otherwise.")
+        ]
     return messages_history[chat_id]
 
 
@@ -67,7 +65,9 @@ def start_handler(message):
     if chat_id in messages_history:
         del messages_history[chat_id]
 
-    messages_history[chat_id] = [SystemMessage(content='...')] # replace system prompt
+    messages_history[chat_id] = [
+        SystemMessage(content="You are a helpful AI assistant. Always answer in Russian unless asked otherwise.")
+        ]
     bot.send_message(
         chat_id,
         "👋 Привет! Я бот для вопросов и работы с документами.\n\n"
@@ -146,7 +146,9 @@ def document_handler(message):
             logger.info(f"{time.ctime()}: {len(chunks)} chunks from {filename} added")
             bot.send_message(chat_id, f"✅ Файл *{filename}* успешно добавлен в базу ({len(chunks)} фрагмент(ов)).", parse_mode="Markdown")
 
-            messages_history[chat_id] = [SystemMessage(content="...")]
+            messages_history[chat_id] = [
+                SystemMessage(content="You are a helpful AI assistant. Always answer in Russian unless asked otherwise.")
+            ]
 
         except Exception as e:
             logger.error(f"Error while handling document: {e}")

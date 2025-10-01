@@ -1,0 +1,16 @@
+python-dotenv
+requests
+beautifulsoup4
+trafilatura
+pyTelegramBotAPI
+qdrant-client
+
+langchain
+langchain-community
+langchain-huggingface
+langchain-groq
+langchain-qdrant
+
+unstructured
+pypdf
+python-magic
