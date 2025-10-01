@@ -25,9 +25,9 @@ from chat import (
 load_dotenv()
 
 messages_history = {}
+user_settings = {}
 MAX_HISTORY = 5
 vectorstore = None
-ENABLE_PARSING = False
 
 logger = logging.getLogger(__name__)
 BOT_TOKEN = os.getenv('BOT_TOKEN')
@@ -53,6 +53,16 @@ def update_history(chat_id, message):
     history.append(message)
     while len(history) > (2 * MAX_HISTORY + 1):
         history.pop(1)
+
+
+def get_user_setting(chat_id, key, default=None):
+    return user_settings.get(chat_id, {}).get(key, default)
+
+
+def set_user_setting(chat_id, key, value):
+    if chat_id not in user_settings:
+        user_settings[chat_id] = {}
+    user_settings[chat_id][key] = value
 
 
 # ================== HANDLERS ===============
@@ -90,7 +100,12 @@ def ask_handler(message):
     update_history(chat_id, HumanMessage(content=user_text))
     history = get_history(chat_id)
     start_time = time.time()
-    answer = generate_response(vectorstore, user_text, history, parse=ENABLE_PARSING)
+    answer = generate_response(
+        vectorstore,
+        user_text,
+        history,
+        parse=get_user_setting(chat_id, "parse", False)
+    )
     end_time = time.time()
     logger.info(f"generation time: {round(end_time - start_time, 2)}")
     
@@ -102,10 +117,12 @@ def ask_handler(message):
 @bot.message_handler(commands=['parse'])
 def parse_handler(message):
     chat_id = message.chat.id
+    current = get_user_setting(chat_id, "parse", False)
     markup = types.InlineKeyboardMarkup()
     markup.add(types.InlineKeyboardButton("✅ Включить парсинг", callback_data="parse_on"))
     markup.add(types.InlineKeyboardButton("❌ Выключить парсинг", callback_data="parse_off"))
-    bot.send_message(chat_id, f"⚙️ Настройка режима парсинга\nТекущий статус: {ENABLE_PARSING}", reply_markup=markup)
+    bot.send_message(chat_id, f"⚙️ Настройка режима парсинга\nТекущий статус: {current}", reply_markup=markup)
+
 
 
 @bot.message_handler(commands=['rag'])
@@ -171,18 +188,15 @@ def message_handler(message):
 @bot.callback_query_handler(func=lambda call: True)
 def callback_query(call):
     chat_id = call.message.chat.id
-    global ENABLE_PARSING
 
     if call.data == "parse_on":
-        bot.answer_callback_query(call.id)
-        ENABLE_PARSING = True
-        logger.info(f"{time.ctime()}: parsing mode enabled...") 
+        set_user_setting(chat_id, "parse", True)
+        logger.info(f"{time.ctime()}: parsing mode enabled for {chat_id}") 
         bot.send_message(chat_id, "✅ Режим парсинга включён.")
 
     elif call.data == "parse_off":
-        bot.answer_callback_query(call.id)
-        ENABLE_PARSING = False
-        logger.info(f"{time.ctime()}: parsing mode disabled") 
+        set_user_setting(chat_id, "parse", False)
+        logger.info(f"{time.ctime()}: parsing mode disabled for {chat_id}") 
         bot.send_message(chat_id, "❌ Режим парсинга выключен.")
 
 
