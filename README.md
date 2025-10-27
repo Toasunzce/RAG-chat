@@ -11,6 +11,7 @@ The telegram bot is based on LLM **LLaMA 3.3 Versatile** (70B params), ported vi
 To improve the quality of response, the system was integrated with **RAG-tools** and **vectorstores** (Qdrant). Documents uploaded to the system are encrypted into embeddings using **ru-en-RoSBERTa**, ported via [Hugging Face](https://huggingface.co/ai-forever/ru-en-RoSBERTa). A web-parsing module was also implemented, allowing data to be extracted from the internet and taken into account when generating a response.
 
 *System diagram*
+
 ![diagram](bot_scheme.jpg)
 
 # Supported commands
@@ -40,7 +41,7 @@ pip install -r requirements.txt
 python bot.py
 ```
 
-# Roadmap
+## Roadmap
 
 - Add multiprocessing
 - Optimize data extraction from vectorstore (relevance score, reranker)
@@ -49,7 +50,7 @@ python bot.py
 - UI/UX upgrade (mini-app)
 - Local LLM
 
-# Troubleshooting
+## Troubleshooting
 
 - When multiple users are using requests, the bot crashes
 - Many users has shared storage. This can easily cause dataleaks
