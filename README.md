@@ -11,7 +11,7 @@ To improve the quality of response, the system was integrated with **RAG-tools**
 
 *System diagram*
 
-<img src="content/bot_scheme.jpg" width=80% height=80%>
+<img src="content/bot_scheme.jpg" width=60% height=60%>
 
 ## Supported commands
 
@@ -42,7 +42,7 @@ python bot.py
 
 ## Usage example
 
-<img src="content/screen.png" width=30% height=30%>
+<img src="content/screen.png" width=40% height=40%>
 
 ## Roadmap
 
