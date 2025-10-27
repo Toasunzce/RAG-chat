@@ -11,7 +11,7 @@ To improve the quality of response, the system was integrated with **RAG-tools**
 
 *System diagram*
 
-![diagram](content/bot_scheme.jpg)
+<img src="content/bot_scheme.jpg" width=80% height=80%>
 
 ## Supported commands
 
