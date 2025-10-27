@@ -1,6 +1,6 @@
 # Info
 
-Solution to the test case for еру "AI-bot developer" intership at [Sberbank](https://www.sberbank.ru/). Goal: build a Telegram bot powered by a large language model with Russian dialogue, Retrieval‑Augmented Generation (RAG) over user documents, and a web‑parsing module to incorporate fresh information into answers.
+Solution to the test case for "AI-bot developer" intership at [Sberbank](https://www.sberbank.ru/). Goal: build a Telegram bot powered by a large language model with Russian dialogue, Retrieval‑Augmented Generation (RAG) over user documents, and a web‑parsing module to incorporate fresh information into answers.
 The core application logic (LLM, templates, RAG pipeline) is built on LangChain.
 
 ## Structure
