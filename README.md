@@ -42,7 +42,7 @@ python bot.py
 
 ## Usage example
 
-![example](content/screen.png)
+<img src="content/screen.png" width=30% height=30%>
 
 ## Roadmap
 
