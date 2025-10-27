@@ -1,9 +1,9 @@
 # Info
 
 Solution to the test case for еру "AI-bot developer" intership at [Sberbank](https://www.sberbank.ru/). Goal: build a Telegram bot powered by a large language model with Russian dialogue, Retrieval‑Augmented Generation (RAG) over user documents, and a web‑parsing module to incorporate fresh information into answers.
-The core application logic (chains, tools, RAG pipeline) is built on LangChain.
+The core application logic (LLM, templates, RAG pipeline) is built on LangChain.
 
-# Structure
+## Structure
 
 The telegram bot is based on LLM **LLaMA 3.3 Versatile** (70B params), ported via **Groq API**. This model provides conversations in russian and is used to generate responses to the user. 
 
@@ -11,9 +11,9 @@ To improve the quality of response, the system was integrated with **RAG-tools**
 
 *System diagram*
 
-![diagram](bot_scheme.jpg)
+![diagram](content/bot_scheme.jpg)
 
-# Supported commands
+## Supported commands
 
 | command | description |
 |--------|-------|
@@ -39,6 +39,10 @@ pip install -r requirements.txt
 ```bash
 python bot.py
 ```
+
+## Usage example
+
+[aisfknmasmfld .,mdsf.m sdkf.,m slkdf](content/screen.png)
 
 ## Roadmap
 
