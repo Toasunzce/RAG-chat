@@ -42,7 +42,7 @@ python bot.py
 
 ## Usage example
 
-[aisfknmasmfld .,mdsf.m sdkf.,m slkdf](content/screen.png)
+![example](content/screen.png)
 
 ## Roadmap
 
