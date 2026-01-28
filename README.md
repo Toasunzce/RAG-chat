@@ -1,17 +1,33 @@
-# Info
+# LLM-powered Telegram Bot with RAG and Web Parsing
+![Python](https://img.shields.io/badge/Python-3.10%2B-blue?logo=python)
+![Telegram](https://img.shields.io/badge/Telegram-Bot-26A5E4?logo=telegram)
+![LLM](https://img.shields.io/badge/LLM-LLaMA%203.3%2070B-ff69b4)
+![LangChain](https://img.shields.io/badge/LangChain-RAG-blueviolet)
+![Qdrant](https://img.shields.io/badge/VectorDB-Qdrant-DC244C?logo=qdrant)
+![Embeddings](https://img.shields.io/badge/Embeddings-RoSBERTa-orange)
+![Status](https://img.shields.io/badge/Status-Prototype-yellow)
+
+> Test assignment solution for **AI-bot developer internship at Sberbank**  
+> Telegram bot with Russian dialogue, RAG over user documents, and live web parsing.
 
 Solution to the test case for "AI-bot developer" intership at [Sberbank](https://www.sberbank.ru/). Goal: build a Telegram bot powered by a large language model with Russian dialogue, Retrieval‑Augmented Generation (RAG) over user documents, and a web‑parsing module to incorporate fresh information into answers.
 The core application logic (LLM, templates, RAG pipeline) is built on LangChain.
 
-## Structure
+## Architecture
 
-The telegram bot is based on LLM **LLaMA 3.3 Versatile** (70B params), ported via **Groq API**. This model provides conversations in russian and is used to generate responses to the user. 
+- **LLM**: LLaMA 3.3 Versatile (70B), accessed via Groq API  
+- **Dialogue language**: Russian  
+- **Framework**: LangChain  
+- **Vector store**: Qdrant  
+- **Embeddings**: ru-en-RoSBERTa (Hugging Face)  
+- **Interface**: Telegram Bot API  
 
-To improve the quality of response, the system was integrated with **RAG-tools** and **vectorstores** (Qdrant). Documents uploaded to the system are encrypted into embeddings using **ru-en-RoSBERTa**, ported via [Hugging Face](https://huggingface.co/ai-forever/ru-en-RoSBERTa). A web-parsing module was also implemented, allowing data to be extracted from the internet and taken into account when generating a response.
+The system supports Retrieval-Augmented Generation (RAG) over user-uploaded documents
+and optional web parsing for incorporating fresh information into responses.
 
-*System diagram*
+## System overview
 
-<img src="content/bot_scheme.jpg" width=60% height=60%>
+<img src="content/bot_scheme.jpg" width=60%>
 
 ## Supported commands
 
@@ -32,7 +48,7 @@ BOT_TOKEN=
 ```
 3. Install dependencies
 ```bash
-cd constellation-recognition
+cd cd telegram-llm-bot
 pip install -r requirements.txt
 ```
 4. And run the `bot.py` module:
