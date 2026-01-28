@@ -7,11 +7,8 @@
 ![Embeddings](https://img.shields.io/badge/Embeddings-RoSBERTa-orange)
 ![Status](https://img.shields.io/badge/Status-Prototype-yellow)
 
-> Test assignment solution for **AI-bot developer internship at Sberbank**  
+> Test assignment solution for **AI-bot developer internship at [Sberbank](https://www.sberbank.ru/)**  
 > Telegram bot with Russian dialogue, RAG over user documents, and live web parsing.
-
-Solution to the test case for "AI-bot developer" intership at [Sberbank](https://www.sberbank.ru/). Goal: build a Telegram bot powered by a large language model with Russian dialogue, Retrieval‑Augmented Generation (RAG) over user documents, and a web‑parsing module to incorporate fresh information into answers.
-The core application logic (LLM, templates, RAG pipeline) is built on LangChain.
 
 ## Architecture
 
